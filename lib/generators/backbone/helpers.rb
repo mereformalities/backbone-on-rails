@@ -13,17 +13,25 @@ module Backbone
       def template_path
         "#{asset_path}/templates"
       end
+      
+      def model_name
+        file_name.singularize
+      end
+      
+      def collection_name
+        file_name.pluralize
+      end
 
       def model_namespace
-        [app_name, "Models", file_name.singularize.camelize].join(".")
+        [app_name, "Models", model_name.camelize].join(".")
       end
 
       def collection_namespace
-        [app_name, "Collections", file_name.pluralize.camelize].join(".")
+        [app_name, "Collections", collection_name.camelize].join(".")
       end
 
       def router_namespace
-        [app_name, "Routers", file_name.pluralize.camelize].join(".")
+        [app_name, "Routers", collection_name.camelize].join(".")
       end
 
       def view_namespace

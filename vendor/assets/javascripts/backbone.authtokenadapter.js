@@ -16,9 +16,9 @@ var BackboneRailsAuthTokenAdapter = {
   // forgery. Optionally, the token's name and value can be supplied
   // by the caller.
   //
-  fixSync: function(Backbone, paramName /*optional*/, paramValue /*optional*/){
+  fixSync: function (Backbone, paramName /*optional*/, paramValue /*optional*/) {
 
-    if(typeof(paramName)=='string' && typeof(paramValue)=='string'){
+    if(typeof(paramName)=='string' && typeof(paramValue)=='string') {
       // Use paramName and paramValue as supplied
     } else {
       // Assume we've rendered meta tags with erb
@@ -30,7 +30,7 @@ var BackboneRailsAuthTokenAdapter = {
     Backbone._sync = Backbone.sync;
 
     // define a new sync method
-    Backbone.sync = function(method, model, success, error) {
+    Backbone.sync = function (method, model, success, error) {
 
       // only need a token for non-get requests
       if (method == 'create' || method == 'update' || method == 'delete') {
@@ -42,14 +42,13 @@ var BackboneRailsAuthTokenAdapter = {
         // set it as a model attribute without triggering events
         model.set(auth_options, {silent: true});
       }
-
       // proxy the call to the old sync method
       return Backbone._sync(method, model, success, error);
     };
   },
 
   // Change Backbone's sync function back to the original one
-  restoreSync: function(Backbone){
+  restoreSync: function (Backbone) {
     Backbone.sync = Backbone._sync;
   }
 };
